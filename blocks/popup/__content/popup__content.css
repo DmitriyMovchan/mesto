@@ -1,0 +1,24 @@
+.popup__content {
+    border: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    min-width: 358px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    outline-color: blue;
+    outline-width: 2px;
+    margin: 0;
+}
+
+.popup__content:last-of-type {
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 880px) {
+    .popup__content {
+        min-width: 238px;
+    }
+}
