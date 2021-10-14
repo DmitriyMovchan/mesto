@@ -16,9 +16,9 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
-@import url(../blocks/element/__mask-group/element__mask-group.css);
-@import url(../blocks/element/__mask-group/_description/element__mask-group_description.css);
-@import url(../blocks/element/__mask-group/_heard/element__mask-group_heard.css);
+@import url(../blocks/mask-group/mask-group.css);
+@import url(../blocks/mask-group/__description/mask-group__description.css);
+@import url(../blocks/mask-group/__heard/mask-group__heard.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/popup/popup.css);
