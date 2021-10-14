@@ -1,4 +1,4 @@
-.element__mask-group_heard {
+.mask-group__heard {
     background-image: url(../../../../images/heard.svg);
     background-position: center;
     background-size: cover;
@@ -9,6 +9,6 @@
     cursor: pointer;
 }
 
-.element__mask-group_heard:hover {
+.mask-group__heard:hover {
     opacity: .7;
 }
