@@ -8,4 +8,4 @@
 2. grid.
 3. popup на js.
 
-## [Ссылка на проект Github]()
+## [Ссылка на проект Github](https://dmitriymovchan.github.io/mesto/)
