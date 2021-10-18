@@ -3,22 +3,24 @@
     height: 24px;
     border: 1px solid #ffffff;
     background-color: black;
-    background-image: url(../../../images/pencil.png);
+    background-image: url(../../../images/pencil.svg);
     background-repeat: no-repeat;
     background-position: center;
     margin-left: 18px;
     box-sizing: border-box;
     cursor: pointer;
+    margin: 15px 0 16px 18px;
+    object-fit: cover;
 }
 
 .profile__edit-button:hover {
-    opacity: .7;
+    opacity: .5;
 }
 
 @media screen and (max-width: 880px) {
     .profile__edit-button {
         width: 18px;
         height: 18px;
-        margin: 0 0 0 10px;
+        margin: 8px 10px 14px 10px;
     }
 }

@@ -1,14 +1,17 @@
 .mask-group__heard {
     background-image: url(../../../../images/heard.svg);
     background-position: center;
-    background-size: cover;
     box-sizing: border-box;
     background-repeat: no-repeat;
-    min-width: 22px;
-    min-height: 19px;
+    width: 22px;
+    height: 19px;
     cursor: pointer;
+    border: 0;
+    object-fit: contain;
+    background-color: white;
+    margin: 5px 5px 0 0;
 }
 
 .mask-group__heard:hover {
-    opacity: .7;
+    opacity: .5;
 }

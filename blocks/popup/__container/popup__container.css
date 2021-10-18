@@ -1,14 +1,15 @@
 .popup__container {
+    position: relative;
     display: flex;
     flex-direction: column;
     background: #FFFFFF;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    z-index: 100;
     min-width: 430px;
-    min-height: 330px;
-    position: relative;
+    height: 330px;
     align-self: center;
+    box-sizing: border-box;
+    margin: 163px 0 195px 0;
 }
 
 @media screen and (max-width: 880px) {

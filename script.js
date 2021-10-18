@@ -9,7 +9,7 @@ const profileProfession = document.querySelector('.profile__profession');
 
 
 function openPopup() {
-    popup.classList.add('popup__open')
+    popup.classList.add('popup_open')
     popupName.value = profileName.textContent;
     popupProfession.value = profileProfession.textContent;
 }
@@ -18,7 +18,7 @@ editButton.addEventListener('click', openPopup)
 
 
 function closePopup() {
-    popup.classList.remove('popup__open')
+    popup.classList.remove('popup_open')
 }
 
 popupCloseButton.addEventListener('click', closePopup)

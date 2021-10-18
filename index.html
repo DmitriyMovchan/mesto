@@ -11,92 +11,89 @@
     <div class="page">
       <header class="header">
         <img class="header__logo" src="images/logo.svg" alt="логотип">
-        <div class="header__line"></div>
       </header>
 
       <main class="content">
         <section class="profile">
-          <img class="profile__avatar" src="images/kusto.svg" alt="аватар">
+          <img class="profile__avatar" src="images/Kusto.jpg" alt="аватар">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
+            <button class="profile__edit-button" type="button"></button>
             <p class="profile__profession">Исследователь океана</p>
           </div>
-          <button class="profile__add-button"></button>
+          <button class="profile__add-button" type="button"></button>
         </section>
 
         <section class="elements">
-          <div class="element">
+          <article class="element">
               <img class="element__image" src="images/karachaevsk.jpg" alt="Карачаевск">
               <div class="mask-group">
-                <p class="mask-group__description">Карачаевск</p>
-               <div class="mask-group__heard"></div>
+                <h2 class="mask-group__description">Карачаевск</h2>
+               <button class="mask-group__heard" type="button"></button>
               </div>
-          </div>
+          </article>
 
-          <div class="element">
+          <article class="element">
               <img class="element__image" src="images/elbrus.jpg" alt="Эльбрус">
               <div class="mask-group">
-                <p class="mask-group__description">Гора Эльбрус</p>
-                <div class="mask-group__heard"></div>
+                <h2 class="mask-group__description">Гора Эльбрус</h2>
+                <button class="mask-group__heard" type="button"></button>
               </div>
-          </div>
+          </article>
 
-          <div class="element">
+          <article class="element">
               <img class="element__image" src="images/dombai.jpg" alt="Домбай">
               <div class="mask-group">
-                <p class="mask-group__description">Домбай</p>
-                <div class="mask-group__heard"></div>
+                <h2 class="mask-group__description">Домбай</h2>
+                <button class="mask-group__heard" type="button"></button>
               </div>
-          </div>
+          </article>
 
-          <div class="element">
+          <article class="element">
               <img class="element__image" src="images/elbrus.jpg" alt="Эльбрус">
               <div class="mask-group">
-                <p class="mask-group__description">Гора Эльбрус</p>
-                <div class="mask-group__heard"></div>
+                <h2 class="mask-group__description">Гора Эльбрус</h2>
+                <button class="mask-group__heard" type="button"></button>
               </div>
-          </div>
+          </article>
 
-          <div class="element">
+          <article class="element">
               <img class="element__image" src="images/dombai.jpg" alt="Домбай">
               <div class="mask-group">
-                <p class="mask-group__description">Домбай</p>
-                <div class="mask-group__heard"></div>
+                <h2 class="mask-group__description">Домбай</h2>
+                <button class="mask-group__heard" type="button"></button>
               </div>
-          </div>
+          </article>
 
-          <div class="element">
+          <article class="element">
               <img class="element__image" src="images/karachaevsk.jpg" alt="Карачаевск">
               <div class="mask-group">
-                <p class="mask-group__description">Карачаево-Черкессия</p>
-                <div class="mask-group__heard"></div>
+                <h2 class="mask-group__description">Карачаево-Черкессия</h2>
+                <button class="mask-group__heard" type="button"></button>
               </div>
-          </div>
+          </article>
           
         </section>
       </main>
      
       <footer class="footer">
-        <p class="footer__copyright">© 2020 Mesto Russia</p>
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
       
     </div>
-     <section class="popup">
+     <div class="popup">
           <div class="popup__container">
-            <button class="popup__close"></button>
-            <h2 class="popup__edit">Редактировать профиль</h2>
-            <form class="popup__form">
+            <button class="popup__close" type="button"></button>
+            <h2 class="popup__heading">Редактировать профиль</h2>
+            <form class="popup__form" name="popup__form">
                <fieldset class="popup__content">
-                <input class="popup__input popup__input_type_name" type="text">
+                <input class="popup__input popup__input_type_name" type="text" name="popup__input">
+                <input class="popup__input popup__input_type_profession" type="text" name="popup__input">
                </fieldset>
-               <fieldset class="popup__content">
-                <input class="popup__input popup__input_type_profession" type="text">
-               </fieldset>
-               <button class="popup__button">Сохранить</button>
+               <button class="popup__button" type="submit">Сохранить</button>
             </form>
           </div>
-        </section>
+        </div>
 
     <script src="script.js"></script>
     

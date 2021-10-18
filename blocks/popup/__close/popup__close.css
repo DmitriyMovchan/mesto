@@ -2,14 +2,17 @@
     min-width: 32px;
     min-height: 32px;
     position: absolute;
-    right: -40px;
-    top: -40px;
     background-image: url(../../../images/close.svg);
     background-color: rgba(0, 0, 0, 0);
-    background-size: 32px 32px;
     border: none;
     cursor: pointer;
     background-repeat: no-repeat;
+    top: -40px;
+    right: -40px;
+}
+
+.popup__close:hover {
+    opacity: .5;
 }
 
 @media screen and (max-width: 880px) {

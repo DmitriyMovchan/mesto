@@ -1,19 +1,13 @@
 .profile__info {
     max-width: 336px;
-    min-height: 73px;
     display: flex;
     flex-wrap: wrap;
-    align-self: center;
-    margin-left: 30px;
-    align-items: baseline;
-    box-sizing: border-box;
-    position: relative;
+    margin: 22px 0 25px 30px;
 }
 
 @media screen and (max-width: 880px) {
     .profile__info {
         max-width: 282px;
-        max-height: 54px;
-        margin: 26px 0 36px;
+        margin: 26px 0 34px;
     }
 }
