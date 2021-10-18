@@ -2,8 +2,8 @@
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
-    min-width: 358px;
-    font-family: Inter;
+    max-width: 358px;
+    font-family: "Inter", "Arial", "Helvetica", sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -11,9 +11,14 @@
     margin: 0;
     padding: 0;
     min-height: 27px;
-    border: 1px solid red;
 }
 
 .popup__input:first-of-type {
     margin-bottom: 30px;
+}
+
+@media screen and (max-width: 880px) {
+    .popup__input {
+        max-width: 238px;
+    }
 }

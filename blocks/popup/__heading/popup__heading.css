@@ -14,5 +14,6 @@
         padding: 25px 0 75px 22px;
         font-size: 18px;
         line-height: 22px;
+        max-width: 238px;
     }
 }
