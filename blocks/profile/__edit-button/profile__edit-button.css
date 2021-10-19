@@ -11,10 +11,11 @@
     cursor: pointer;
     margin: 15px 0 16px 18px;
     object-fit: cover;
+    background-size: 10px 10px;
 }
 
 .profile__edit-button:hover {
-    opacity: .5;
+    opacity: .6;
 }
 
 @media screen and (max-width: 880px) {
@@ -22,5 +23,6 @@
         width: 18px;
         height: 18px;
         margin: 8px 10px 14px 10px;
+        background-size: 7.5px 7.5px;
     }
 }
