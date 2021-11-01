@@ -12,7 +12,7 @@ const popupProfession = document.querySelector('.popup__input_type_profession');
 const profileProfession = document.querySelector('.profile__profession');
 const popupInputTypeTitle = document.querySelector('.popup__input_type_title');
 const popupInputTypeLink = document.querySelector('.popup__input_type_link');
-const popupImageBig = document.querySelector('.popup__big');
+const popupImageBig = document.querySelector('.popup_big');
 const popupImage = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('.popup__title');
 
