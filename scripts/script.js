@@ -53,9 +53,12 @@ function closePopup(popup) { // закрывает попап
     popup.classList.remove('popup_open') // удаляет класс
 }
 
-editButton.addEventListener('click', () => openPopup(profilePopupElement)); //слушатель нажатия на кнопу изменения профайла
-popupName.value = profileName.textContent;
-popupProfession.value = profileProfession.textContent;
+editButton.addEventListener('click', () => { //слушатель нажатия на кнопу изменения профайла
+    openPopup(profilePopupElement);
+    popupName.value = profileName.textContent;
+    popupProfession.value = profileProfession.textContent;
+});
+
 
 addButton.addEventListener('click', () => openPopup(popupAddElement)); //слушатель нажатия на кнопу изменения профайла
 
@@ -98,6 +101,7 @@ function createCard(item) { //ф-я переработчик массива
     const element = template.querySelector('.element').cloneNode(true); // клонируем элемент в template
     element.querySelector('.mask-group__description').textContent = item.name; // меняем имя на имя в массиве
     element.querySelector('.element__image').src = item.link; // меняем ссылку на ссылку в массиве
+    element.querySelector('.element__image').alt = item.name; // меняем альт картинки на имя из массива
     element.querySelector('.element__delete').addEventListener('click', (event) => { // слушаем клик по кнопке удаления элемента
         event.target.closest('.element').remove(); // удаляем элемент
     });
@@ -106,7 +110,7 @@ function createCard(item) { //ф-я переработчик массива
     });
 
     element.querySelector('.element__image').addEventListener('click', (event) => { // слушаем клик по картинке элемента
-        popupImage.src = event.target.src; // берем ссылку на этот элемент из массива
+        popupImage.src = event.target.src; // берем ссылку на этот элемент из массива, а alt поменял на 104 строке
         openPopup(popupImageBig); // открываем попап с большой картинкой
         popupCloseBigImage.addEventListener('click', () => closePopup(popupImageBig)); // слушатель при нажатии на крестик закрывает форму
     });
