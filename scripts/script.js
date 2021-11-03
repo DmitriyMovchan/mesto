@@ -110,8 +110,8 @@ function createCard(item) { //ф-я переработчик массива
     });
 
     element.querySelector('.element__image').addEventListener('click', (event) => { // слушаем клик по картинке элемента
-        popupImage.src = event.target.src; // берем ссылку на этот элемент из массива, а alt поменял на 104 строке
-        popupImage.alt = event.target.alt;
+        popupImage.src = event.target.src; // берем ссылку на этот элемент из массива
+        popupImage.alt = event.target.alt; // замена alt
         popupTitle.textContent = item.name;
         openPopup(popupImageBig); // открываем попап с большой картинкой
         popupCloseBigImage.addEventListener('click', () => closePopup(popupImageBig)); // слушатель при нажатии на крестик закрывает форму
