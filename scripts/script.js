@@ -1,3 +1,5 @@
+const popup = document.querySelectorAll('.popup');
+const input = document.querySelectorAll('.popup__input');
 const profilePopupElement = document.querySelector('.popup_edit-profile')
 const editButton = document.querySelector('.profile__edit-button');
 const popupAddElement = document.querySelector('.popup_add-element');
@@ -92,9 +94,6 @@ window.addEventListener('load', () => { // ф-я плавного открыти
 popupFormEditProfile.addEventListener('submit', submitProfileForm) //слушает введение данных в форму изменения профайла
 popupFormAddElement.addEventListener('submit', submitAddElement) //слушает введение данных в форму добавления карточек
 
-
-
-
 initialCards.forEach(appendCards); //обработка массива
 
 function createCard(item) { //ф-я переработчик массива
@@ -128,4 +127,25 @@ function appendCards(item) { //ф-я добавления на страницу 
 function prependCard(item) { // ф-я добавления на страницу новых карточек в начало.
     const element = createCard(item);
     elements.prepend(element);
+}
+
+function popupClickHandler(event) { // закрытие попапов на overlay
+    if (event.target.classList.contains('popup')) {
+        closePopup(event.target)
+    }
+}
+
+function popupClickKeydown(event) { // закрытие попапов на ESC
+    if (event.key === 'Escape') {
+        const popup_active = document.querySelector('.popup_open');
+        closePopup(popup_active)
+    }
+}
+
+for (i = 0; i < popup.length; i++) { // цикл обработки массива для клика мыши
+    popup[i].addEventListener('click', popupClickHandler);
+}
+
+for (i = 0; i < input.length; i++) {
+    input[i].addEventListener('keydown', popupClickKeydown); // цикл обработки массива для ESC
 }

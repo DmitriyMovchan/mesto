@@ -13,10 +13,6 @@
     min-height: 27px;
 }
 
-.popup__input:first-of-type {
-    margin-bottom: 30px;
-}
-
 @media screen and (max-width: 880px) {
     .popup__input {
         max-width: 238px;
