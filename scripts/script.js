@@ -1,12 +1,9 @@
-const popup = document.querySelectorAll('.popup');
-const input = document.querySelectorAll('.popup__input');
+const popups = document.querySelectorAll('.popup');
+const inputs = document.querySelectorAll('.popup__input');
 const profilePopupElement = document.querySelector('.popup_edit-profile')
 const editButton = document.querySelector('.profile__edit-button');
 const popupAddElement = document.querySelector('.popup_add-element');
 const addButton = document.querySelector('.profile__add-button');
-const popupCloseEditProfile = document.querySelector('.popup__close_edit-profile');
-const popupCloseAddElement = document.querySelector('.popup__close_add-element');
-const popupCloseBigImage = document.querySelector('.popup__close_big-image');
 const popupFormEditProfile = document.querySelector('.popup__form');
 const popupFormAddElement = document.querySelector('.popup__form_add-element');
 const popupName = document.querySelector('.popup__input_type_name');
@@ -48,11 +45,12 @@ const initialCards = [{ // массив карточек "из коробки"
 
 function openPopup(popup) { //открывает попап
     popup.classList.add('popup_open') // добавление класса
-
+    document.addEventListener('keydown', closeByEscape);
 }
 
 function closePopup(popup) { // закрывает попап
     popup.classList.remove('popup_open') // удаляет класс
+    document.removeEventListener('keydown', closeByEscape);
 }
 
 editButton.addEventListener('click', () => { //слушатель нажатия на кнопу изменения профайла
@@ -64,15 +62,20 @@ editButton.addEventListener('click', () => { //слушатель нажатия
 
 addButton.addEventListener('click', () => openPopup(popupAddElement)); //слушатель нажатия на кнопу изменения профайла
 
-popupCloseEditProfile.addEventListener('click', () => closePopup(profilePopupElement)); // слушатель при нажатии на крестик закрывает форму
-popupCloseAddElement.addEventListener('click', () => closePopup(popupAddElement)); // слушатель при нажатии на крестик закрывает форму
-
+popups.forEach((popup) => { // ф-я обработчик закрытия на оверлей и крестик
+    popup.addEventListener('click', (event) => {
+        if ((event.target.classList.contains('popup_open')) || (event.target.classList.contains('popup__close'))) {
+            closePopup(popup)
+        }
+    })
+})
 
 function submitProfileForm(event) { // 
     event.preventDefault(); // не дает отправить данные на сервер
     profileName.textContent = popupName.value; // меняет значение имени
     profileProfession.textContent = popupProfession.value; //меняет значение фамилии
     closePopup(profilePopupElement); // закрывает попап при введении
+
 }
 
 function submitAddElement(event) { // ф-я добавления карточек
@@ -88,7 +91,7 @@ function submitAddElement(event) { // ф-я добавления карточе�
     closePopup(popupAddElement); // закрываем попап добавления
 }
 window.addEventListener('load', () => { // ф-я плавного открытия/закрытия попапа
-    document.querySelectorAll('.popup').forEach((popup) => popup.classList.add('popup_transition'))
+    popups.forEach((popup) => popup.classList.add('popup_transition'))
 })
 
 popupFormEditProfile.addEventListener('submit', submitProfileForm) //слушает введение данных в форму изменения профайла
@@ -98,9 +101,10 @@ initialCards.forEach(appendCards); //обработка массива
 
 function createCard(item) { //ф-я переработчик массива
     const element = template.querySelector('.element').cloneNode(true); // клонируем элемент в template
+    const elementImage = element.querySelector('.element__image');
     element.querySelector('.mask-group__description').textContent = item.name; // меняем имя на имя в массиве
-    element.querySelector('.element__image').src = item.link; // меняем ссылку на ссылку в массиве
-    element.querySelector('.element__image').alt = item.name; // меняем альт картинки на имя из массива
+    elementImage.src = item.link; // меняем ссылку на ссылку в массиве
+    elementImage.alt = item.name; // меняем альт картинки на имя из массива
     element.querySelector('.element__delete').addEventListener('click', (event) => { // слушаем клик по кнопке удаления элемента
         event.target.closest('.element').remove(); // удаляем элемент
     });
@@ -113,7 +117,6 @@ function createCard(item) { //ф-я переработчик массива
         popupImage.alt = event.target.alt; // замена alt
         popupTitle.textContent = item.name;
         openPopup(popupImageBig); // открываем попап с большой картинкой
-        popupCloseBigImage.addEventListener('click', () => closePopup(popupImageBig)); // слушатель при нажатии на крестик закрывает форму
     });
 
     return element; //возвращаем блок элемента
@@ -129,23 +132,9 @@ function prependCard(item) { // ф-я добавления на страницу
     elements.prepend(element);
 }
 
-function popupClickHandler(event) { // закрытие попапов на overlay
-    if (event.target.classList.contains('popup')) {
-        closePopup(event.target)
+function closeByEscape(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_open')
+        closePopup(openedPopup);
     }
-}
-
-function popupClickKeydown(event) { // закрытие попапов на ESC
-    if (event.key === 'Escape') {
-        const popup_active = document.querySelector('.popup_open');
-        closePopup(popup_active)
-    }
-}
-
-for (i = 0; i < popup.length; i++) { // цикл обработки массива для клика мыши
-    popup[i].addEventListener('click', popupClickHandler);
-}
-
-for (i = 0; i < input.length; i++) {
-    input[i].addEventListener('keydown', popupClickKeydown); // цикл обработки массива для ESC
 }
