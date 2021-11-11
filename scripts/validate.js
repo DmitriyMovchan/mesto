@@ -52,7 +52,6 @@ function hideError(input, form, config) {
     const errorElement = form.querySelector(`#${input.id}-error`);
     input.classList.remove(config.inputErrorClass);
     errorElement.textContent = '';
-
 }
 
 enableValidation(config);

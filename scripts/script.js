@@ -1,5 +1,6 @@
 const popups = document.querySelectorAll('.popup');
 const inputs = document.querySelectorAll('.popup__input');
+const forms = document.querySelectorAll('.popup__form');
 const profilePopupElement = document.querySelector('.popup_edit-profile')
 const editButton = document.querySelector('.profile__edit-button');
 const popupAddElement = document.querySelector('.popup_add-element');
@@ -46,17 +47,30 @@ const initialCards = [{ // массив карточек "из коробки"
 function openPopup(popup) { //открывает попап
     popup.classList.add('popup_open') // добавление класса
     document.addEventListener('keydown', closeByEscape);
+    forms.forEach((form) => {
+        setSubmitButtonState(form, config);
+    })
+
 }
 
 function closePopup(popup) { // закрывает попап
     popup.classList.remove('popup_open') // удаляет класс
     document.removeEventListener('keydown', closeByEscape);
+    const form = popup.querySelector(config.formSelector)
+    const inputs = popup.querySelectorAll(config.inputSelector)
+    inputs.forEach(el => {
+        hideError(el, form, config)
+    })
 }
 
 editButton.addEventListener('click', () => { //слушатель нажатия на кнопу изменения профайла
-    openPopup(profilePopupElement);
+
     popupName.value = profileName.textContent;
     popupProfession.value = profileProfession.textContent;
+    openPopup(profilePopupElement);
+    forms.forEach((form) => {
+        setSubmitButtonState(form, config);
+    })
 });
 
 

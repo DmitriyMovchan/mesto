@@ -16,4 +16,5 @@
 
 .popup__error:first-of-type {
     margin-bottom: 30px;
+    max-width: 238px;
 }
