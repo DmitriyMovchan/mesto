@@ -47,20 +47,11 @@ const initialCards = [{ // массив карточек "из коробки"
 function openPopup(popup) { //открывает попап
     popup.classList.add('popup_open') // добавление класса
     document.addEventListener('keydown', closeByEscape);
-    forms.forEach((form) => {
-        setSubmitButtonState(form, config);
-    })
-
 }
 
 function closePopup(popup) { // закрывает попап
     popup.classList.remove('popup_open') // удаляет класс
     document.removeEventListener('keydown', closeByEscape);
-    const form = popup.querySelector(config.formSelector)
-    const inputs = popup.querySelectorAll(config.inputSelector)
-    inputs.forEach(el => {
-        hideError(el, form, config)
-    })
 }
 
 editButton.addEventListener('click', () => { //слушатель нажатия на кнопу изменения профайла
@@ -71,10 +62,25 @@ editButton.addEventListener('click', () => { //слушатель нажатия
     forms.forEach((form) => {
         setSubmitButtonState(form, config);
     })
+    const form = profilePopupElement.querySelector(config.formSelector)
+    const inputs = profilePopupElement.querySelectorAll(config.inputSelector)
+    inputs.forEach(el => {
+        hideError(el, form, config)
+    })
 });
 
 
-addButton.addEventListener('click', () => openPopup(popupAddElement)); //слушатель нажатия на кнопу изменения профайла
+addButton.addEventListener('click', () => {
+    openPopup(popupAddElement)
+    forms.forEach((form) => {
+        setSubmitButtonState(form, config);
+    })
+    const form = popupAddElement.querySelector(config.formSelector)
+    const inputs = popupAddElement.querySelectorAll(config.inputSelector)
+    inputs.forEach(el => {
+        hideError(el, form, config)
+    })
+}); //слушатель нажатия на кнопу изменения профайла
 
 popups.forEach((popup) => { // ф-я обработчик закрытия на оверлей и крестик
     popup.addEventListener('click', (event) => {
