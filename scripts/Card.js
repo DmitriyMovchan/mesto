@@ -1,37 +1,43 @@
-import { openPopup } from "./index.js";
+const popupImage = document.querySelector('.popup__image');
+const popupTitle = document.querySelector('.popup__title');
+const popupBig = document.querySelector('.popup_big');
 
 class Card {
-    constructor(item, template) {
+    constructor(item, template, handleCardClick) {
         this._item = item;
         this._view = template.querySelector('.element').cloneNode(true);
         this._remove = this._remove.bind(this);
+        this._cardImage = this._view.querySelector('.element__image');
+        this._handleCardClick = handleCardClick;
+        this._buttonDelete = this._view.querySelector('.element__delete');
     }
 
-    _remove() {
+    _remove = (event) => {
         this._view.remove();
+        event.stopPropagation();
     }
 
     _heard(event) {
         event.target.classList.toggle('mask-group__heard_black');
+        event.stopPropagation();
     }
 
-    _imageBig(event) {
-        const popupImage = document.querySelector('.popup__image');
-        const popupTitle = document.querySelector('.popup__title');
-        popupImage.src = event.target.src; // берем ссылку на этот элемент из массива
-        popupImage.alt = event.target.alt; // замена alt
-        popupTitle.textContent = event.target.alt;
-        openPopup(document.querySelector('.popup_big'));
+    _setEventListeners() {
+        this._view.querySelector('.element__delete').addEventListener('click', this._remove);
+        this._view.querySelector('.mask-group__heard').addEventListener('click', this._heard);
+        this._buttonDelete.addEventListener('click', this._remove);
+        this._view.addEventListener('click', () => {
+            this._handleCardClick(this._item.name, this._item.link)
+          });
     }
 
 
     render() {
         this._view.querySelector('.mask-group__description').textContent = this._item.name;
-        this._view.querySelector('.element__image').src = this._item.link;
-        this._view.querySelector('.element__image').alt = this._item.name;
-        this._view.querySelector('.element__delete').addEventListener('click', this._remove);
-        this._view.querySelector('.mask-group__heard').addEventListener('click', this._heard);
-        this._view.querySelector('.element__image').addEventListener('click', this._imageBig)
+        this._cardImage.src = this._item.link;
+        this._cardImage.alt = this._item.name;
+        this._setEventListeners();
+        
         return this._view;
     }
 }
