@@ -17,18 +17,17 @@ class Card {
         event.stopPropagation();
     }
 
-    _heard(event) {
+    _toggleHeart(event) {
         event.target.classList.toggle('mask-group__heard_black');
         event.stopPropagation();
     }
 
     _setEventListeners() {
-        this._view.querySelector('.element__delete').addEventListener('click', this._remove);
-        this._view.querySelector('.mask-group__heard').addEventListener('click', this._heard);
+        this._view.querySelector('.mask-group__heard').addEventListener('click', this._toggleHeart);
         this._buttonDelete.addEventListener('click', this._remove);
         this._view.addEventListener('click', () => {
             this._handleCardClick(this._item.name, this._item.link)
-          });
+        });
     }
 
 
@@ -37,7 +36,7 @@ class Card {
         this._cardImage.src = this._item.link;
         this._cardImage.alt = this._item.name;
         this._setEventListeners();
-        
+
         return this._view;
     }
 }

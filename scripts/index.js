@@ -68,8 +68,6 @@ function createCard(item) {
 export function openPopup(popup) {
     popup.classList.add('popup_open') // добавление класса
     document.addEventListener('keydown', closeByEscape);
-    const formName = popup.querySelector("form").getAttribute("name");
-    formValidators[formName].resetValidation();
 }
 
 import Card from './Card.js'
@@ -90,10 +88,10 @@ editButton.addEventListener('click', () => {
 addButton.addEventListener('click', () => {
     popupInputTypeTitle.value = '';
     popupInputTypeLink.value = '';
-        const formName = popupAddElement.querySelector("form").getAttribute("name");
-        formValidators[formName].resetValidation();
-        openPopup(popupAddElement)
-    })
+    const formName = popupAddElement.querySelector("form").getAttribute("name");
+    formValidators[formName].resetValidation();
+    openPopup(popupAddElement)
+})
 
 popups.forEach((popup) => {
     popup.addEventListener('click', (event) => {
@@ -135,7 +133,7 @@ function handleCardClick(name, link) {
     popupImage.src = link; // берем ссылку на этот элемент из массива
     popupImage.alt = name; // замена alt
     openPopup(popupImageBig);
-  }
+}
 
 popupFormEditProfile.addEventListener('submit', submitProfileForm) //слушает введение данных в форму изменения профайла
 popupFormAddElement.addEventListener('submit', submitAddElement) //слушает введение данных в форму добавления карточек
@@ -165,17 +163,14 @@ const formValidators = {}
 
 // Включение валидации
 const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(formElement, config)
-    const formName = formElement.getAttribute('name')
-    formValidators[formName] = validator;
-   validator.enableValidation();
-  });
+    const formList = Array.from(document.querySelectorAll(config.formSelector))
+    formList.forEach((formElement) => {
+        const validator = new FormValidator(formElement, config)
+        const formName = formElement.getAttribute('name')
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    });
 };
 
 
 enableValidation(config);
-
-
- 

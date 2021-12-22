@@ -31,8 +31,7 @@ const popupImage = document.querySelector('.popup__image')
 const popupTitle = document.querySelector('.popup__title')
 const elements = document.querySelector('.elements') //выбирает ближайший к темплейту элемент
 const template = document.querySelector('.template').content // берет контент темплейта
-const initialCards = [
-    {
+const initialCards = [{
         // массив карточек "из коробки"
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -91,22 +90,22 @@ editButton.addEventListener('click', () => {
     })
     const form = profilePopupElement.querySelector(config.formSelector)
     const inputs = profilePopupElement.querySelectorAll(config.inputSelector)
-    // inputs.forEach((el) => {
-    //     hideError(el, form, config)
-    // })
+        // inputs.forEach((el) => {
+        //     hideError(el, form, config)
+        // })
 })
 
 addButton.addEventListener('click', () => {
-    openPopup(popupAddElement)
-    forms.forEach((form) => {
-        //setSubmitButtonState(form, config)
-    })
-    const form = popupAddElement.querySelector(config.formSelector)
-    const inputs = popupAddElement.querySelectorAll(config.inputSelector)
-    inputs.forEach((el) => {
-        //hideError(el, form, config)
-    })
-}) //слушатель нажатия на кнопу изменения профайла
+        openPopup(popupAddElement)
+        forms.forEach((form) => {
+            //setSubmitButtonState(form, config)
+        })
+        const form = popupAddElement.querySelector(config.formSelector)
+        const inputs = popupAddElement.querySelectorAll(config.inputSelector)
+        inputs.forEach((el) => {
+            //hideError(el, form, config)
+        })
+    }) //слушатель нажатия на кнопу изменения профайла
 
 popups.forEach((popup) => {
     // ф-я обработчик закрытия на оверлей и крестик
@@ -140,7 +139,7 @@ function submitAddElement(event) {
     event.target.reset()
     prependCard(item)
     cardList.addCard(item)
-    // добавляем карточку в начало
+        // добавляем карточку в начало
     closePopup(popupAddElement) // закрываем попап добавления
 }
 window.addEventListener('load', () => {
@@ -152,8 +151,8 @@ popupFormEditProfile.addEventListener('submit', submitProfileForm) //слуша�
 popupFormAddElement.addEventListener('submit', submitAddElement) //слушает введение данных в форму добавления карточек
 
 initialCards.forEach((item) => {
-    cardList.addCard(item)
-}) //обработка массива
+        cardList.addCard(item)
+    }) //обработка массива
 
 function prependCard(item) {
     // ф-я добавления на страницу новых карточек в начало.
@@ -169,5 +168,4 @@ function closeByEscape(evt) {
 }
 
 const formValidator = new FormValidator(config)
-console.log(formValidator)
 formValidator.enableValidation();

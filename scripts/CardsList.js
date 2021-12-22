@@ -1,5 +1,5 @@
 class CardsList {
-    constructor (component, cards, createCard) {
+    constructor(component, cards, createCard) {
         this._component = component;
         this._cards = cards;
         this._createCard = createCard;
@@ -11,7 +11,7 @@ class CardsList {
         this._component.append(view);
     }
 
-    
+
 }
 
 export default CardsList;
