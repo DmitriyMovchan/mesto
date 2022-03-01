@@ -1,150 +1,83 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Место</title>
-        <link rel="stylesheet" href="./pages/index.css" />
-    </head>
-    <body class="body">
-        <div class="page">
-            <header class="header">
-                <img class="header__logo" src="images/logo.svg" alt="логотип" />
-            </header>
 
-            <main class="content">
-                <section class="profile">
-                    <img
-                        class="profile__avatar"
-                        src="images/Kusto.jpg"
-                        alt="аватар"
-                    />
-                    <div class="profile__info">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <button
-                            class="profile__edit-button"
-                            type="button"
-                            aria-label="Редактировать"
-                        ></button>
-                        <p class="profile__profession">Исследователь океана</p>
-                    </div>
-                    <button class="profile__add-button" type="button"></button>
-                </section>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+</head>
 
-                <section class="elements"></section>
-            </main>
+<body class="body">
+    <div class="page">
+        <header class="header">
+            <img class="header__logo" src="images/logo.svg" alt="логотип" />
+        </header>
 
-            <footer class="footer">
-                <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-            </footer>
-        </div>
+        <main class="content">
+            <section class="profile">
+                <img class="profile__avatar" src="images/Kusto.jpg" alt="аватар" />
+                <div class="profile__info">
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
+                    <p class="profile__profession">Исследователь океана</p>
+                </div>
+                <button class="profile__add-button" type="button"></button>
+            </section>
 
-        <div class="popup popup_edit-profile">
-            <div class="popup__container">
-                <button
-                    class="popup__close popup__close_edit-profile"
-                    type="button"
-                ></button>
-                <h2 class="popup__heading">Редактировать профиль</h2>
-                <form
-                    class="popup__form popup__form_edit-profile"
-                    name="edit-profile"
-                    novalidate
-                >
-                    <fieldset class="popup__content">
-                        <input
-                            class="popup__input popup__input_type_name"
-                            type="text"
-                            name="popup__input_type_name"
-                            placeholder="Введите имя"
-                            required
-                            minlength="2"
-                            maxlength="40"
-                            id="input_name"
-                        />
-                        <span id="input_name-error" class="popup__error"></span>
-                        <input
-                            class="popup__input popup__input_type_profession"
-                            type="text"
-                            name="popup__input_type_profession"
-                            placeholder="Введите род деятельности"
-                            required
-                            minlength="2"
-                            maxlength="200"
-                            id="input_profession"
-                        />
-                        <span
-                            id="input_profession-error"
-                            class="popup__error"
-                        ></span>
-                    </fieldset>
-                    <button class="popup__button" type="submit">
+            <section class="elements"></section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+        </footer>
+    </div>
+
+    <div class="popup popup_edit-profile">
+        <div class="popup__container">
+            <button class="popup__close popup__close_edit-profile" type="button"></button>
+            <h2 class="popup__heading">Редактировать профиль</h2>
+            <form class="popup__form popup__form_edit-profile" name="edit-profile" novalidate>
+                <fieldset class="popup__content">
+                    <input class="popup__input popup__input_type_name" type="text" name="popup__input_type_name" placeholder="Введите имя" required minlength="2" maxlength="40" id="input_name" />
+                    <span id="input_name-error" class="popup__error"></span>
+                    <input class="popup__input popup__input_type_profession" type="text" name="popup__input_type_profession" placeholder="Введите род деятельности" required minlength="2" maxlength="200" id="input_profession" />
+                    <span id="input_profession-error" class="popup__error"></span>
+                </fieldset>
+                <button class="popup__button" type="submit">
                         Сохранить
                     </button>
-                </form>
-            </div>
+            </form>
         </div>
+    </div>
 
-        <div class="popup popup_add-element">
-            <div class="popup__container">
-                <button
-                    class="popup__close popup__close_add-element"
-                    type="button"
-                ></button>
-                <h2 class="popup__heading">Новое место</h2>
-                <form
-                    class="popup__form popup__form_add-element"
-                    name="add-element"
-                    novalidate
-                >
-                    <fieldset class="popup__content">
-                        <input
-                            class="popup__input popup__input_type_title"
-                            type="text"
-                            name="popup__input_type_name"
-                            placeholder="Название"
-                            required
-                            minlength="2"
-                            maxlength="30"
-                            id="input_title"
-                        />
-                        <span
-                            id="input_title-error"
-                            class="popup__error"
-                        ></span>
-                        <input
-                            class="popup__input popup__input_type_link"
-                            type="url"
-                            name="popup__input_type_profession"
-                            placeholder="Ссылка на картинку"
-                            required
-                            id="input_link"
-                        />
-                        <span id="input_link-error" class="popup__error"></span>
-                    </fieldset>
-                    <button class="popup__button" type="submit">
+    <div class="popup popup_add-element">
+        <div class="popup__container">
+            <button class="popup__close popup__close_add-element" type="button"></button>
+            <h2 class="popup__heading">Новое место</h2>
+            <form class="popup__form popup__form_add-element" name="add-element" novalidate>
+                <fieldset class="popup__content">
+                    <input class="popup__input popup__input_type_title" type="text" name="popup__input_type_name" placeholder="Название" required minlength="2" maxlength="30" id="input_title" />
+                    <span id="input_title-error" class="popup__error"></span>
+                    <input class="popup__input popup__input_type_link" type="url" name="popup__input_type_profession" placeholder="Ссылка на картинку" required id="input_link" />
+                    <span id="input_link-error" class="popup__error"></span>
+                </fieldset>
+                <button class="popup__button" type="submit">
                         Сохранить
                     </button>
-                </form>
-            </div>
+            </form>
         </div>
+    </div>
 
-        <div class="popup popup_big">
-            <div class="popup__container popup__container_image">
-                <button
-                    class="popup__close popup__close_big-image"
-                    type="button"
-                ></button>
-                <img
-                    class="popup__image"
-                    src="images/elbrus.jpg"
-                    alt="Эльбрус"
-                />
-                <p class="popup__title">Алтай</p>
-            </div>
+    <div class="popup popup_big">
+        <div class="popup__container popup__container_image">
+            <button class="popup__close popup__close_big-image" type="button"></button>
+            <img class="popup__image" src="images/elbrus.jpg" alt="Эльбрус" />
+            <p class="popup__title">Алтай</p>
         </div>
+    </div>
 
-        <template class="template">
+    <template class="template">
             <article class="element">
                 <button class="element__delete"></button>
                 <button class="element__button-image" type="submit">
@@ -157,6 +90,7 @@
             </article>
         </template>
 
-        <script type="module" src="./scripts/index.js"></script>
-    </body>
+    <script type="module" src="./scripts/script.js"></script>
+</body>
+
 </html>

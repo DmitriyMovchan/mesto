@@ -1,7 +1,3 @@
-const popupImage = document.querySelector('.popup__image');
-const popupTitle = document.querySelector('.popup__title');
-const popupBig = document.querySelector('.popup_big');
-
 class Card {
     constructor(item, template, handleCardClick) {
         this._item = item;
@@ -11,6 +7,7 @@ class Card {
         this._handleCardClick = handleCardClick;
         this._buttonDelete = this._view.querySelector('.element__delete');
     }
+
 
     _remove = (event) => {
         this._view.remove();

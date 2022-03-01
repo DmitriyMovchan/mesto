@@ -1,12 +1,12 @@
-class CardsList {
-    constructor(component, cards, createCard) {
+class Section {
+    constructor(component, cards, renderer) {
         this._component = component;
         this._cards = cards;
-        this._createCard = createCard;
+        this._renderer = renderer;
     }
 
     addCard(item) {
-        const card = this._createCard(item);
+        const card = this._renderer(item);
         const view = card.render();
         this._component.append(view);
     }
@@ -14,4 +14,4 @@ class CardsList {
 
 }
 
-export default CardsList;
+export default Section;
