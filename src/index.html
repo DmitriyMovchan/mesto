@@ -5,18 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css" />
 </head>
 
 <body class="body">
     <div class="page">
         <header class="header">
-            <img class="header__logo" src="images/logo.svg" alt="логотип" />
+            <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип" />
         </header>
 
         <main class="content">
             <section class="profile">
-                <img class="profile__avatar" src="images/Kusto.jpg" alt="аватар" />
+                <img class="profile__avatar" src="<%=require('./images/Kusto.jpg')%>" alt="аватар" />
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
@@ -72,7 +71,7 @@
     <div class="popup popup_big">
         <div class="popup__container popup__container_image">
             <button class="popup__close popup__close_big-image" type="button"></button>
-            <img class="popup__image" src="images/elbrus.jpg" alt="Эльбрус" />
+            <img class="popup__image" src="<%=require('./images/elbrus.jpg')%>" alt="Эльбрус" />
             <p class="popup__title">Алтай</p>
         </div>
     </div>
@@ -90,7 +89,6 @@
             </article>
         </template>
 
-    <script type="module" src="./scripts/script.js"></script>
 </body>
 
 </html>

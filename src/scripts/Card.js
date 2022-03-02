@@ -33,7 +33,6 @@ class Card {
         this._cardImage.src = this._item.link;
         this._cardImage.alt = this._item.name;
         this._setEventListeners();
-
         return this._view;
     }
 }

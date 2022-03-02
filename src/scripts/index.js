@@ -4,6 +4,9 @@ import Card from './Card.js'
 import Popup from './Popup.js'
 import PopupWithImage from './PopupWithImage.js'
 import PopupWithForm from './PopupWithForm.js'
+import UserInfo from './UserInfo.js'
+
+import '../pages/index.css';
 
 const config = {
     formSelector: '.popup__form',
@@ -59,17 +62,18 @@ const initialCards = [{
 const cardList = new Section(elements, initialCards, renderer)
 const popupProfile = new Popup(profilePopupElement)
 const editPopup = new PopupWithForm(popupAddElement, submitCallback)
+const popupWithImage = new PopupWithImage(popupImageBig);
+const userInfo = new UserInfo(profileName, profileProfession)
 
 function renderer(item) {
     const card = new Card(item, template, handleCardClick)
     return card
 }
 
+const formValidators = {}
+
 editButton.addEventListener('click', () => {
-    popupName.value = profileName.textContent
-    popupProfession.value = profileProfession.textContent
-    const formName = profilePopupElement.querySelector("form").getAttribute("name");
-    formValidators[formName].resetValidation();
+    formValidators[userInfo.setUserInfo(popupName, popupProfession)].resetValidation();
     popupProfile.openPopup(profilePopupElement);
     popupProfile.setEventListeners()
 })
@@ -106,7 +110,6 @@ window.addEventListener('load', () => { // ф-я плавного открыти
 })
 
 function handleCardClick(popupTitle, popupImage) {
-    const popupWithImage = new PopupWithImage(popupImageBig);
     popupWithImage.openPopup(popupTitle, popupImage);
     popupWithImage.setEventListeners()
 }
@@ -123,8 +126,6 @@ function prependCard(item) {
     const element = renderer(item).render()
     elements.prepend(element)
 }
-
-const formValidators = {}
 
 // Включение валидации
 const enableValidation = (config) => {
