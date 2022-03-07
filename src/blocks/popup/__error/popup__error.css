@@ -16,5 +16,11 @@
 
 .popup__error:first-of-type {
     margin-bottom: 30px;
-    max-width: 238px;
+    max-width: 358px;
+}
+
+@media screen and (max-width: 880px) {
+    .popup__error:first-of-type {
+        max-width: 238px;
+    }
 }

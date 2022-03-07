@@ -7,13 +7,14 @@ class Popup {
     openPopup() {
         //открывает попап
         this._popup.classList.add('popup_open'); // добавление класса
-        document.addEventListener('keydown', this._handleEscClose)
+        document.addEventListener('keydown', this._handleEscClose);
+
     }
 
     closePopup() {
         // закрывает попап
         this._popup.classList.remove('popup_open') // удаляет класс
-        document.removeEventListener('keydown', this._handleEscClose)
+        document.removeEventListener('keydown', this._handleEscClose);
     }
 
     _handleEscClose = (event) => {
@@ -23,7 +24,8 @@ class Popup {
     }
 
     setEventListeners() {
-        this._popup.addEventListener('click', (event) => {
+        this._popup.addEventListener('mousedown', (event) => {
+
             if (
                 event.target.classList.contains('popup_open') ||
                 event.target.classList.contains('popup__close')

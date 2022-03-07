@@ -9,20 +9,18 @@ class Card {
     }
 
 
-    _remove = (event) => {
+    _remove = () => {
         this._view.remove();
-        event.stopPropagation();
     }
 
     _toggleHeart(event) {
         event.target.classList.toggle('mask-group__heard_black');
-        event.stopPropagation();
     }
 
     _setEventListeners() {
         this._view.querySelector('.mask-group__heard').addEventListener('click', this._toggleHeart);
         this._buttonDelete.addEventListener('click', this._remove);
-        this._view.addEventListener('click', () => {
+        this._cardImage.addEventListener('click', () => {
             this._handleCardClick(this._item.name, this._item.link)
         });
     }

@@ -1,11 +1,10 @@
-import Section from './Section.js'
-import FormValidator from './FormValidator.js'
-import Card from './Card.js'
-import Popup from './Popup.js'
-import PopupWithImage from './PopupWithImage.js'
-import PopupWithForm from './PopupWithForm.js'
-import UserInfo from './UserInfo.js'
-
+import Section from '../components/Section.js'
+import FormValidator from '../components/FormValidator.js'
+import Card from '../components/Card.js'
+import Popup from '../components/Popup.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import UserInfo from '../components/UserInfo.js'
 import '../pages/index.css';
 
 const config = {
@@ -24,9 +23,9 @@ const addButton = document.querySelector('.profile__add-button')
 const popupFormEditProfile = document.querySelector('.popup__form_edit-profile') // fixed, old - .popup__form
 const popupFormAddElement = document.querySelector('.popup__form_add-element')
 const popupName = document.querySelector('.popup__input_type_name')
-const profileName = document.querySelector('.profile__name')
+const profileName = '.profile__name'
 const popupProfession = document.querySelector('.popup__input_type_profession')
-const profileProfession = document.querySelector('.profile__profession')
+const profileProfession = '.profile__profession'
 const popupInputTypeTitle = document.querySelector('.popup__input_type_title')
 const popupInputTypeLink = document.querySelector('.popup__input_type_link')
 const popupImageBig = document.querySelector('.popup_big')
@@ -60,22 +59,27 @@ const initialCards = [{
 ]
 
 const cardList = new Section(elements, initialCards, renderer)
-const popupProfile = new Popup(profilePopupElement)
-const editPopup = new PopupWithForm(popupAddElement, submitCallback)
+const popupProfile = new PopupWithForm(profilePopupElement, (inputValues) => {
+    userInfo.setUserInfo(inputValues.name, inputValues.profession);
+})
+const editPopup = new PopupWithForm(popupAddElement, handleCardFormSubmit)
 const popupWithImage = new PopupWithImage(popupImageBig);
 const userInfo = new UserInfo(profileName, profileProfession)
 
 function renderer(item) {
     const card = new Card(item, template, handleCardClick)
-    return card
+    return card.render()
 }
 
 const formValidators = {}
 
 editButton.addEventListener('click', () => {
-    formValidators[userInfo.setUserInfo(popupName, popupProfession)].resetValidation();
-    popupProfile.openPopup(profilePopupElement);
-    popupProfile.setEventListeners()
+    const { name, description } = userInfo.getUserInfo()
+    popupName.value = name;
+    popupProfession.value = description
+    const formName = popupFormEditProfile.getAttribute("name");
+    formValidators[formName].resetValidation();
+    popupProfile.openPopup();
 })
 
 addButton.addEventListener('click', () => {
@@ -83,27 +87,28 @@ addButton.addEventListener('click', () => {
     popupInputTypeLink.value = '';
     const formName = popupAddElement.querySelector("form").getAttribute("name");
     formValidators[formName].resetValidation();
-    editPopup.openPopup(popupAddElement);
-    editPopup.setEventListeners()
+    editPopup.openPopup();
 })
+editPopup.setEventListeners();
+popupProfile.setEventListeners();
+popupWithImage.setEventListeners();
 
 function submitProfileForm(event) {
     event.preventDefault() // не дает отправить данные на сервер
-    profileName.textContent = popupName.value // меняет значение имени
-    profileProfession.textContent = popupProfession.value //меняет значение фамилии
-    popupProfile.closePopup(profilePopupElement) // закрывает попап при введении
+    userInfo.setUserInfo(popupName.value, popupProfession.value)
+    popupProfile.closePopup() // закрывает попап при введении
 }
 
-function submitCallback() {
+function handleCardFormSubmit(inputValues) {
     // ф-я добавления карточек
-    const title = popupInputTypeTitle.value // меняем значение title на введеное в карточке
-    const link = popupInputTypeLink.value // меняем значение Link на введеное в карточке
+    const title = inputValues.name // меняем значение title на введеное в карточке
+    const link = inputValues.description // меняем значение Link на введеное в карточке
     const item = {
         name: title,
         link: link,
     }
     prependCard(item)
-    editPopup.closePopup(popupAddElement) // закрываем попап добавления
+
 }
 window.addEventListener('load', () => { // ф-я плавного открытия/закрытия попапа
     popups.forEach((popup) => popup.classList.add('popup_transition'))
@@ -111,19 +116,12 @@ window.addEventListener('load', () => { // ф-я плавного открыти
 
 function handleCardClick(popupTitle, popupImage) {
     popupWithImage.openPopup(popupTitle, popupImage);
-    popupWithImage.setEventListeners()
 }
-
-popupFormEditProfile.addEventListener('submit', submitProfileForm) //слушает введение данных в форму изменения профайла
-popupFormAddElement.addEventListener('submit', submitCallback) //слушает введение данных в форму добавления карточек
-
-initialCards.forEach((item) => {
-        cardList.addCard(item)
-    }) //обработка массива
 
 function prependCard(item) {
     // ф-я добавления на страницу новых карточек в начало.
-    const element = renderer(item).render()
+    console.log('qqq')
+    const element = renderer(item)
     elements.prepend(element)
 }
 
@@ -138,53 +136,4 @@ const enableValidation = (config) => {
     });
 };
 
-
 enableValidation(config);
-
-
-//const popup1 = document.querySelector('.popup')
-//const inputs = document.querySelectorAll('.popup__input')
-//const forms = document.querySelectorAll('.popup__form')
-//const addCardForm = document.querySelector('.popup__form_add-element')
-//const popupImage = document.querySelector('.popup__image')
-//const popupTitle = document.querySelector('.popup__title')
-
-/* popups.forEach((popup) => {
-    popup.addEventListener('click', (event) => {
-        if (
-            event.target.classList.contains('popup_open') ||
-            event.target.classList.contains('popup__close')
-        ) {
-            popup.closePopup()
-        }
-    })
-}) */
-
-/*function openPopup(popup) {
-    popup.classList.add('popup_open') // добавление класса
-    document.addEventListener('keydown', closeByEscape);
-}
-
-
-
-function closePopup(popup) {
-    popup.classList.remove('popup_open') // удаляет класс
-    document.removeEventListener('keydown', closeByEscape)
-} */
-
-// popupImage.src = link; // берем ссылку на этот элемент из массива
-// popupImage.alt = name; // замена alt
-// popupTitle.textContent = name;
-// popupWithImage.openPopup(popupImageBig);
-// popupWithImage.setEventListeners()
-
-/* function closeByEscape(evt) {
-    if (evt.key === 'Escape') {
-        const openedPopup = document.querySelector('.popup_open')
-        popup.closePopup(openedPopup)
-    }
-} */
-
-//const formValidator = new FormValidator(config)
-//console.log(formValidator)
-//formValidator.enableValidation();
