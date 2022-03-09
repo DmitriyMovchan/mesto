@@ -8,15 +8,17 @@ class Card {
         this._buttonDelete = this._view.querySelector('.element__delete');
     }
 
-
+    // удаляет карточку
     _remove = () => {
         this._view.remove();
     }
 
+    // навешивает/убирает класс сердечку
     _toggleHeart(event) {
         event.target.classList.toggle('mask-group__heard_black');
     }
 
+    // слушатель клика на все кнопки карточки
     _setEventListeners() {
         this._view.querySelector('.mask-group__heard').addEventListener('click', this._toggleHeart);
         this._buttonDelete.addEventListener('click', this._remove);
@@ -25,7 +27,7 @@ class Card {
         });
     }
 
-
+    // создание карточки и ее возврат
     render() {
         this._view.querySelector('.mask-group__description').textContent = this._item.name;
         this._cardImage.src = this._item.link;

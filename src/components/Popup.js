@@ -6,24 +6,26 @@ class Popup {
 
     openPopup() {
         //открывает попап
-        this._popup.classList.add('popup_open'); // добавление класса
+        this._popup.classList.add('popup_open');
         document.addEventListener('keydown', this._handleEscClose);
 
     }
 
     closePopup() {
         // закрывает попап
-        this._popup.classList.remove('popup_open') // удаляет класс
+        this._popup.classList.remove('popup_open');
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
     _handleEscClose = (event) => {
+        // закрывает попап на esc
         if (event.key === 'Escape') {
             this.closePopup()
         }
     }
 
     setEventListeners() {
+        // закрывает попап на оверлее и кнопке закрытия
         this._popup.addEventListener('mousedown', (event) => {
 
             if (

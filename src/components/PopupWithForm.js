@@ -8,6 +8,7 @@ class PopupWithForm extends Popup {
         this._inputList = this._form.querySelectorAll('.popup__input')
     }
 
+    // собирает все инпуты в форме
     _getInputValues() {
         this._inputValues = {};
         this._inputList.forEach(input => {
@@ -16,15 +17,16 @@ class PopupWithForm extends Popup {
         return this._inputValues;
     }
 
+    // слушает сабмит
     setEventListeners() {
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) => {
             this._submitCallback(this._getInputValues());
             this.closePopup();
-            super.setEventListeners();
         })
     }
 
+    // закрывает попап и чистит форму
     closePopup() {
         super.closePopup();
         this._form.reset();

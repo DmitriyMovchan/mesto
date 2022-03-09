@@ -4,6 +4,7 @@ class UserInfo {
         this._description = document.querySelector(descriptionSelector);
     }
 
+    // возвращает объект с введенными значениями в форме
     getUserInfo() {
         return this._userInfo = {
             name: this._name.textContent,
@@ -11,11 +12,11 @@ class UserInfo {
         }
     };
 
+    // меняет значение формы
     setUserInfo(name, profession) {
         this._name.textContent = name
         this._description.textContent = profession
-        const formName = document.querySelector("form").getAttribute("name");
-        return formName
+
     }
 
 }
