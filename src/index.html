@@ -17,9 +17,9 @@
             <section class="profile">
                 <img class="profile__avatar" src="<%=require('./images/Kusto.jpg')%>" alt="аватар" />
                 <div class="profile__info">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <h1 class="profile__name"></h1>
                     <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
-                    <p class="profile__profession">Исследователь океана</p>
+                    <p class="profile__profession"></p>
                 </div>
                 <button class="profile__add-button" type="button"></button>
             </section>
@@ -68,6 +68,16 @@
         </div>
     </div>
 
+    <div class="popup popup_delete-confirm">
+        <div class="popup__container">
+            <button class="popup__close popup__close_add-element" type="button"></button>
+            <h2 class="popup__heading">Вы уверены?</h2>
+            <form class="popup__form " name="delete-element" novalidate>
+                <button class="popup__button popup__button-delete">Да</button>
+            </form>
+        </div>
+    </div>
+
     <div class="popup popup_big">
         <div class="popup__container popup__container_image">
             <button class="popup__close popup__close_big-image" type="button"></button>
@@ -85,6 +95,7 @@
                 <div class="mask-group">
                     <h2 class="mask-group__description">Гора Эльбрус</h2>
                     <button class="mask-group__heard" type="submit"></button>
+                    <span class="mask-group__count"></span>
                 </div>
             </article>
         </template>

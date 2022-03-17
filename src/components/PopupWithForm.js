@@ -17,11 +17,16 @@ class PopupWithForm extends Popup {
         return this._inputValues;
     }
 
+    changeSubmitHandler(newSubmitHandler) {
+        this._submitCallback = newSubmitHandler;
+    }
+
     // слушает сабмит
     setEventListeners() {
         super.setEventListeners();
-        this._form.addEventListener('submit', (evt) => {
-            this._submitCallback(this._getInputValues());
+        this._form.addEventListener('submit', () => {
+            //if (!this._form.checkValidity()) return false
+            // this._submitCallback(this._getInputValues());
             this.closePopup();
         })
     }

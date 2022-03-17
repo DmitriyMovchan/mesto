@@ -11,6 +11,7 @@ class FormValidator {
     }
 
     _setSubmitButtonState() {
+        console.log(777)
         this._buttonElement.disabled = !this._form.checkValidity();
         this._buttonElement.classList.toggle(
             this._config.submitButtonErrorClass, !this._form.checkValidity()
@@ -45,6 +46,7 @@ class FormValidator {
     }
 
     resetValidation() {
+        console.log(555);
         this._setSubmitButtonState();
         this._inputs.forEach((inputElement) => {
             this._hideError(inputElement)
