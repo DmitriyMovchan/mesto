@@ -9,6 +9,7 @@ class Section {
     // добавляет новые карточки в DOM
     addCard(item) {
         const card = this._renderer(item);
+        //const view = card.render();
         this._component.append(card);
     }
 
@@ -19,7 +20,7 @@ class Section {
         })
     }
 
-    // отрисовывет карточки на странице
+    // отрисовывет добавленные карточки на странице
     prependCard(item) {
         const element = this._renderer(item)
         this._component.prepend(element)

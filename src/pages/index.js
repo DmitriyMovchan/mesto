@@ -30,9 +30,14 @@ import {
     formValidators
 } from '../utils/constants.js'
 
+let idUser
+
 api.getProfile()
     .then(res => {
+
         userInfo.setUserInfo(res.name, res.about)
+        idUser = res._id
+        console.log(idUser)
     });
 
 
@@ -41,12 +46,16 @@ api.getInitialCards()
         cardLists.forEach(data => {
             const title = data.name // меняем значение title на введеное в карточке
             const link = data.link // меняем значение Link на введеное в карточке
+                //console.log(data)
             const item = {
                 name: title,
                 link: link,
                 likes: data.likes,
-                id: data._id
+                id: data._id,
+                idUser: idUser,
+                ownerId: data.owner._id
             }
+            console.log(item)
             cardList.addCard(item)
         });
     })
@@ -56,6 +65,12 @@ api.getInitialCards()
 
 
 const popupDeleteConfirm = document.querySelector('.popup_delete-confirm')
+
+//const cardList = new Section(elements, [], {
+//   renderer: (data) => {
+//      cardList.addItem(createCard(data));
+//  }
+//});
 
 const cardList = new Section(elements, [], renderer)
 const popupProfile = new PopupWithForm(profilePopupElement, handleProfileFormSubmit);
@@ -70,11 +85,8 @@ const confirmPopup = new PopupWithForm(popupDeleteConfirm, () => {
 
 // отрисовка карточки на странице
 function renderer(item) {
-    const card = new Card(item, template, handleCardClick, handleDeleteClick)
-    api.addCard(item.name, item.link, item.likes, item.id)
-        .then(res => {
-            console.log('res', res)
-        })
+    const card = new Card(item, template, handleCardClick, handleDeleteClick, idUser)
+        //console.log(card)
     return card.render()
 }
 
@@ -127,16 +139,21 @@ function handleProfileFormSubmit(inputValues) {
             userInfo.setUserInfo(res.name, res.about);
         })
 }
+const deletePopup = document.querySelector('.popup__button-delete')
 
 function handleDeleteClick(id) {
     confirmPopup.openPopup()
     confirmPopup.changeSubmitHandler(() => {
         api.deleteCard(id)
             .then(res => {
+                document.querySelector(`.element[data-id="${id}"]`).remove();
+                // deletePopup.addEventListener('click', card.deleteCard())
+                //document.getElementById(id).remove();
                 //const viwe = template.querySelector('.element')
                 //const idCard = document.getElementById(id)
                 //viwe.remove(id)
-                console.log(res)
+                // console.log(res)
+                //  console.log(id)
 
             })
     })

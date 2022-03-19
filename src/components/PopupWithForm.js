@@ -25,8 +25,8 @@ class PopupWithForm extends Popup {
     setEventListeners() {
         super.setEventListeners();
         this._form.addEventListener('submit', () => {
-            //if (!this._form.checkValidity()) return false
-            // this._submitCallback(this._getInputValues());
+            if (!this._form.checkValidity()) return false
+            this._submitCallback(this._getInputValues());
             this.closePopup();
         })
     }

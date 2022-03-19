@@ -1,5 +1,5 @@
 class Card {
-    constructor(item, template, handleCardClick, handleDeleteClick) {
+    constructor(item, template, handleCardClick, handleDeleteClick, idUser) {
         this._item = item;
         this._view = template.querySelector('.element').cloneNode(true);
         this._remove = this._remove.bind(this);
@@ -9,6 +9,8 @@ class Card {
         this._likeCountView = this._view.querySelector('.mask-group__count');
         this._handleDeleteClick = handleDeleteClick;
         this._id = item.id;
+        this._userId = idUser;
+        this._ownerId = item.ownerId
     }
 
     // удаляет карточку
@@ -21,7 +23,7 @@ class Card {
         event.target.classList.toggle('mask-group__heard_black');
     }
 
-    _deleteCard() {
+    deleteCard() {
         this._buttonDelete.addEventListener('click', this._remove);
     }
 
@@ -29,7 +31,6 @@ class Card {
         this._view.querySelector('.mask-group__heard').addEventListener('click', this._toggleHeart);
         this._buttonDelete.addEventListener('click', () => {
                 this._handleDeleteClick(this._id);
-
             })
             //this._buttonDelete.addEventListener('click', this._remove);
         this._cardImage.addEventListener('click', () => {
@@ -53,15 +54,18 @@ class Card {
 
     // создание карточки и ее возврат
     render() {
+        if (this._ownerId !== this._ownerId) {
+            this._buttonDelete.style.display = 'none';
+        }
         this._view.querySelector('.mask-group__description').textContent = this._item.name;
         this._cardImage.src = this._item.link;
         this._cardImage.alt = this._item.name;
-        this._likeCountView.textContent = (this._item.likes && this._item.likes.length) || 0 //сюда как-то нужно передать likes массива от сервера
+        this._view.setAttribute("data-id", this._id);
+        this._likeCountView.textContent = (this._item.likes && this._item.likes.length) || 0;
+
+        //console.log(this._ownerId, this._id)
+
         this._setEventListeners();
-
-
-
-
         return this._view;
     }
 }
