@@ -30,14 +30,14 @@ class Api {
             .catch(console.log)
     }
 
-    addCard(name, link, likes) {
+    addCard({ name, link }) {
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'POST',
                 headers: this._headers,
                 body: JSON.stringify({
                     name,
                     link,
-                    likes
+
                 })
             }).then(res => res.ok ? res.json() : Promise.reject(res.status))
             .catch(console.log)
@@ -46,6 +46,22 @@ class Api {
     deleteCard(id) {
         return fetch(`${this._baseUrl}/cards/${id}`, {
                 method: 'DELETE',
+                headers: this._headers
+            }).then(res => res.ok ? res.json() : Promise.reject(res.status))
+            .catch(console.log)
+    }
+
+    deleteLike(id) {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+                method: 'DELETE',
+                headers: this._headers
+            }).then(res => res.ok ? res.json() : Promise.reject(res.status))
+            .catch(console.log)
+    }
+
+    addLike(id) {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+                method: 'PUT',
                 headers: this._headers
             }).then(res => res.ok ? res.json() : Promise.reject(res.status))
             .catch(console.log)

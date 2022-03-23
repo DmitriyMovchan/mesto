@@ -8,6 +8,9 @@ import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
 import { api } from '../components/Api.js'
 import '../pages/index.css';
+export function getMyId() {
+    return userInfo._id;
+}
 
 
 // импорт констант
@@ -37,7 +40,7 @@ api.getProfile()
 
         userInfo.setUserInfo(res.name, res.about)
         idUser = res._id
-        console.log(idUser)
+            // console.log(idUser)
     });
 
 
@@ -51,11 +54,12 @@ api.getInitialCards()
                 name: title,
                 link: link,
                 likes: data.likes,
-                id: data._id,
+                _id: data._id,
                 idUser: idUser,
-                ownerId: data.owner._id
+                owner: data.owner
             }
-            console.log(item)
+
+            //console.log(item)
             cardList.addCard(item)
         });
     })
@@ -78,17 +82,42 @@ const addPopup = new PopupWithForm(popupAddElement, handleCardFormSubmit);
 const popupWithImage = new PopupWithImage(popupImageBig);
 const userInfo = new UserInfo(profileName, profileProfession)
 const confirmPopup = new PopupWithForm(popupDeleteConfirm, () => {
+    //console.log('qqqq')
     api.deleteCard(id)
 })
 
 
 
+
 // отрисовка карточки на странице
 function renderer(item) {
-    const card = new Card(item, template, handleCardClick, handleDeleteClick, idUser)
+    const card = new Card(item,
+            template,
+            handleCardClick, handleDeleteClick,
+            idUser,
+            (id) => {
+                console.log(id)
+                if (card.isLiked()) {
+                    api.deleteLike(id)
+                        .then(res => {
+                            console.log(res)
+                            card.setLikes(res.likes)
+                        })
+                } else {
+                    api.addLike(id)
+                        .then(res => {
+                            //console.log(res)
+                            card.setLikes(res.likes)
+                        })
+                }
+
+
+            })
         //console.log(card)
     return card.render()
 }
+
+
 
 // слушатель клика кнопки профайла
 editButton.addEventListener('click', () => {
@@ -124,13 +153,20 @@ addPopup.setEventListeners();
 
 
 function handleCardFormSubmit(inputValues) {
+    //console.log(inputValues)
     const title = inputValues.name // меняем значение title на введеное в карточке
     const link = inputValues.description // меняем значение Link на введеное в карточке
     const item = {
         name: title,
         link: link,
     }
-    cardList.prependCard(item)
+
+    api.addCard(item)
+        .then(res => {
+            // console.log('res', res)
+            cardList.prependCard(res)
+        })
+        // cardList.prependCard(item)
 }
 
 function handleProfileFormSubmit(inputValues) {
@@ -142,19 +178,12 @@ function handleProfileFormSubmit(inputValues) {
 const deletePopup = document.querySelector('.popup__button-delete')
 
 function handleDeleteClick(id) {
+    // console.log(id)
     confirmPopup.openPopup()
     confirmPopup.changeSubmitHandler(() => {
         api.deleteCard(id)
             .then(res => {
                 document.querySelector(`.element[data-id="${id}"]`).remove();
-                // deletePopup.addEventListener('click', card.deleteCard())
-                //document.getElementById(id).remove();
-                //const viwe = template.querySelector('.element')
-                //const idCard = document.getElementById(id)
-                //viwe.remove(id)
-                // console.log(res)
-                //  console.log(id)
-
             })
     })
 
@@ -180,3 +209,36 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
+
+
+
+
+/*function updateLikeButtonState(card) {
+    console.log(card)
+    const el = document.querySelector(`.element[data-id="${card._id}"] .mask-group__group_heard`);
+    console.log(el)
+        //const likeCount = card.likes.length || 0;
+    const likeCount = document.querySelector('.mask-group__group_count');
+    likeCount.textContent = card.likes.length || 0;
+    console.log(card)
+    const myLike = card.likes.find(x => x._id === '3f8a3377aa43fb02254f2a2b');
+    if (myLike) el.classList.add("mask-group__group_heard_black");
+    else el.classList.remove("mask-group__group_heard_black");
+}
+
+function handelLikeclick(id) {
+    const myLike = document.querySelector(`.element[data-id="${id}"] .mask-group__group_heard`).classList.contains("mask-group__group_heard_black");;
+    if (myLike) {
+        api.deleteLike(id)
+            .then(res => {
+                console.log(res)
+                updateLikeButtonState(res);
+            })
+    } else {
+        api.addLike(id)
+            .then(res => {
+                console.log(res)
+                updateLikeButtonState(res);
+            })
+    }
+} */

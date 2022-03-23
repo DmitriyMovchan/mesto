@@ -10,11 +10,11 @@ class PopupWithForm extends Popup {
 
     // собирает все инпуты в форме
     _getInputValues() {
-        this._inputValues = {};
-        this._inputList.forEach(input => {
-            this._inputValues[input.name] = input.value;
+        const inputValues = {};
+        this._inputList.forEach((input) => {
+            inputValues[input.name] = input.value;
         });
-        return this._inputValues;
+        return inputValues;
     }
 
     changeSubmitHandler(newSubmitHandler) {

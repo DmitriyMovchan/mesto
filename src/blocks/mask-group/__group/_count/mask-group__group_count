@@ -1,0 +1,5 @@
+.mask-group__group_count {
+    margin-left: 6px;
+    width: 10px;
+    height: 13px;
+}
