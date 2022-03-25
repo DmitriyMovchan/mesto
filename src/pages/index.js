@@ -37,10 +37,8 @@ let idUser
 
 api.getProfile()
     .then(res => {
-
-        userInfo.setUserInfo(res.name, res.about)
+        userInfo.setUserInfo(res.name, res.about, res.avatar)
         idUser = res._id
-            // console.log(idUser)
     });
 
 
@@ -49,7 +47,6 @@ api.getInitialCards()
         cardLists.forEach(data => {
             const title = data.name // меняем значение title на введеное в карточке
             const link = data.link // меняем значение Link на введеное в карточке
-                //console.log(data)
             const item = {
                 name: title,
                 link: link,
@@ -59,9 +56,10 @@ api.getInitialCards()
                 owner: data.owner
             }
 
-            //console.log(item)
             cardList.addCard(item)
+
         });
+        addPopup.closePopup()
     })
 
 
@@ -70,20 +68,54 @@ api.getInitialCards()
 
 const popupDeleteConfirm = document.querySelector('.popup_delete-confirm')
 
-//const cardList = new Section(elements, [], {
-//   renderer: (data) => {
-//      cardList.addItem(createCard(data));
-//  }
-//});
 
+const avatar = document.querySelector('.popup_edit-avatar')
+const editButtonAvatar = document.querySelector('.profile__avatar_button')
+
+const profileAvatar = '.profile__avatar';
 const cardList = new Section(elements, [], renderer)
 const popupProfile = new PopupWithForm(profilePopupElement, handleProfileFormSubmit);
 const addPopup = new PopupWithForm(popupAddElement, handleCardFormSubmit);
 const popupWithImage = new PopupWithImage(popupImageBig);
-const userInfo = new UserInfo(profileName, profileProfession)
-const confirmPopup = new PopupWithForm(popupDeleteConfirm, () => {
-    //console.log('qqqq')
-    api.deleteCard(id)
+const popupEditAvatar = new PopupWithForm(avatar, (inputValues, onThen) => {
+    api.updateAvatar(inputValues.avatar)
+        .then(res => {
+            console.log(res)
+            userInfo.setUserInfo(res.name, res.about, res.avatar)
+            if (onThen) onThen(res);
+        })
+})
+const userInfo = new UserInfo(profileName, profileProfession, profileAvatar)
+const confirmPopup = new PopupWithForm(popupDeleteConfirm
+    /*, (inputValues, onThen) => {
+        api.deleteCard(id).then(res => {
+            console.log('zzzz')
+            if (onThen) onThen(res);
+        });
+    }*/
+)
+
+/*function handleAvatar(inputValues) {
+    console.log(inputValues)
+    api.updateAvatar(inputValues.avatar)
+        .then(res => {
+            console.log(res)
+            userInfo.setUserInfo(res.avatar)
+        })
+} */
+
+const popupTypeAvatar = document.querySelector('.popup__input_type_avatar')
+const popupFormEditAvatar = document.querySelector('.popup__form_edit-avatar')
+
+editButtonAvatar.addEventListener('click', () => {
+    //console.log()
+    const { avatar } = userInfo.getUserInfo();
+    popupTypeAvatar.value = avatar;
+    console.log(popupTypeAvatar)
+        //console.log(editButtonAvatar)
+    const formName = popupFormEditAvatar.getAttribute("name");
+    formValidators[formName].resetValidation();
+    popupEditAvatar.openPopup()
 })
 
 
@@ -92,47 +124,41 @@ const confirmPopup = new PopupWithForm(popupDeleteConfirm, () => {
 // отрисовка карточки на странице
 function renderer(item) {
     const card = new Card(item,
-            template,
-            handleCardClick, handleDeleteClick,
-            idUser,
-            (id) => {
-                console.log(id)
-                if (card.isLiked()) {
-                    api.deleteLike(id)
-                        .then(res => {
-                            console.log(res)
-                            card.setLikes(res.likes)
-                        })
-                } else {
-                    api.addLike(id)
-                        .then(res => {
-                            //console.log(res)
-                            card.setLikes(res.likes)
-                        })
-                }
-
-
-            })
-        //console.log(card)
+        template,
+        handleCardClick, handleDeleteClick,
+        idUser,
+        (id) => {
+            console.log(id)
+            if (card.isLiked()) {
+                api.deleteLike(id)
+                    .then(res => {
+                        console.log(res)
+                        card.setLikes(res.likes)
+                    })
+            } else {
+                api.addLike(id)
+                    .then(res => {
+                        card.setLikes(res.likes)
+                    })
+            }
+        })
     return card.render()
 }
 
-
-
 // слушатель клика кнопки профайла
 editButton.addEventListener('click', () => {
-    //console.log(editButton)
     const { name, description } = userInfo.getUserInfo()
     popupName.value = name;
-    popupProfession.value = description
+    popupProfession.value = description;
     const formName = popupFormEditProfile.getAttribute("name");
     formValidators[formName].resetValidation();
     popupProfile.openPopup();
     api.getProfile()
         .then(res => {
-            userInfo.setUserInfo(res.name, res.about)
-        });
 
+            userInfo.setUserInfo(res.name, res.about, res.avatar)
+
+        });
 })
 
 // слушатель клика кнопки добавления карточки
@@ -148,12 +174,9 @@ popupProfile.setEventListeners();
 popupWithImage.setEventListeners();
 confirmPopup.setEventListeners();
 addPopup.setEventListeners();
+popupEditAvatar.setEventListeners();
 
-
-
-
-function handleCardFormSubmit(inputValues) {
-    //console.log(inputValues)
+function handleCardFormSubmit(inputValues, onThen) {
     const title = inputValues.name // меняем значение title на введеное в карточке
     const link = inputValues.description // меняем значение Link на введеное в карточке
     const item = {
@@ -163,27 +186,29 @@ function handleCardFormSubmit(inputValues) {
 
     api.addCard(item)
         .then(res => {
-            // console.log('res', res)
             cardList.prependCard(res)
+            if (onThen) onThen(res);
         })
-        // cardList.prependCard(item)
 }
 
-function handleProfileFormSubmit(inputValues) {
-    api.editProfile(inputValues.name, inputValues.profession)
+function handleProfileFormSubmit(inputValues, onThen) {
+    return api.editProfile(inputValues.name, inputValues.profession)
         .then(res => {
-            userInfo.setUserInfo(res.name, res.about);
+            userInfo.setUserInfo(res.name, res.about, res.avatar);
+            if (onThen) onThen(res);
         })
+
 }
-const deletePopup = document.querySelector('.popup__button-delete')
 
 function handleDeleteClick(id) {
-    // console.log(id)
     confirmPopup.openPopup()
-    confirmPopup.changeSubmitHandler(() => {
+        //const lastText = confirmPopup._popup.querySelector('.popup__button').textContent
+    confirmPopup.changeSubmitHandler((INPUTvALUES, onThen) => {
         api.deleteCard(id)
             .then(res => {
                 document.querySelector(`.element[data-id="${id}"]`).remove();
+                if (onThen) onThen();
+                //confirmPopup._popup.querySelector('.popup__button').textContent = lastText;
             })
     })
 

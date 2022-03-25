@@ -26,8 +26,14 @@ class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', () => {
             if (!this._form.checkValidity()) return false
-            this._submitCallback(this._getInputValues());
-            this.closePopup();
+            const lastText = this._popup.querySelector('.popup__button').textContent
+            this._popup.querySelector('.popup__button').textContent = 'Сохранение...'
+            if (this._submitCallback) this._submitCallback(this._getInputValues(), () => {
+                this.closePopup();
+                this._popup.querySelector('.popup__button').textContent = lastText;
+            });
+
+            // this.closePopup(); это закрытие переносим в каждую форму после then
         })
     }
 

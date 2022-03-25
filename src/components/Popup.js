@@ -8,7 +8,6 @@ class Popup {
         //открывает попап
         this._popup.classList.add('popup_open');
         document.addEventListener('keydown', this._handleEscClose);
-
     }
 
     closePopup() {
@@ -22,6 +21,12 @@ class Popup {
         if (event.key === 'Escape') {
             this.closePopup()
         }
+    }
+
+    serverUpload() {
+        const button = this._popup.querySelector('.popup__button')
+
+        button.textContent = 'Сохранение...'
     }
 
     setEventListeners() {

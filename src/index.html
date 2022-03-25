@@ -15,7 +15,9 @@
 
         <main class="content">
             <section class="profile">
+                <button class="profile__avatar_button">
                 <img class="profile__avatar" src="<%=require('./images/Kusto.jpg')%>" alt="аватар" />
+            </button>
                 <div class="profile__info">
                     <h1 class="profile__name"></h1>
                     <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
@@ -72,8 +74,24 @@
         <div class="popup__container">
             <button class="popup__close popup__close_add-element" type="button"></button>
             <h2 class="popup__heading">Вы уверены?</h2>
-            <form class="popup__form " name="delete-element" novalidate>
+            <form class="popup__form popup__form_edit-avatar" name="delete-element" novalidate>
                 <button class="popup__button popup__button-delete">Да</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_edit-avatar">
+        <div class="popup__container">
+            <button class="popup__close popup__close_add-element" type="button"></button>
+            <h2 class="popup__heading">Обновить аватар</h2>
+            <form class="popup__form" name="edit-avatar" novalidate>
+                <fieldset class="popup__content">
+                    <input class="popup__input popup__input_type_avatar" type="src" name="avatar" placeholder="Ссылка на картинку" required minlength="2" maxlength="200" id="input_profession" />
+                    <span id="input_profession-error" class="popup__error"></span>
+                </fieldset>
+                <button class="popup__button popup__button_edit-avatar" type="submit">
+                        Сохранить
+                    </button>
             </form>
         </div>
     </div>
