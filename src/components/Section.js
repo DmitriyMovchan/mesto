@@ -3,7 +3,6 @@ class Section {
         this._component = component;
         this._cards = cards;
         this._renderer = renderer;
-        this.renderItems();
     }
 
     // добавляет новые карточки в DOM

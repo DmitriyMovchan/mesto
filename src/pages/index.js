@@ -40,11 +40,35 @@ import {
 
 let idUser
 
-api.getProfile()
+Promise.all([api.getProfile(), api.getInitialCards()])
+    .then(([userData, cardLists]) => {
+        userInfo.setUserInfo(userData.name, userData.about, userData.avatar)
+        idUser = userData._id;
+
+        cardLists.forEach(data => {
+            const title = data.name // меняем значение title на введеное в карточке
+            const link = data.link // меняем значение Link на введеное в карточке
+            const item = {
+                name: title,
+                link: link,
+                likes: data.likes,
+                _id: data._id,
+                idUser: idUser,
+                owner: data.owner
+            }
+            cardList.addCard(item)
+        })
+    })
+    .catch(console.log);
+
+
+/* api.getProfile()
     .then(res => {
         userInfo.setUserInfo(res.name, res.about, res.avatar)
         idUser = res._id
-    });
+    })
+    .catch(console.log);
+
 
 
 api.getInitialCards()
@@ -61,9 +85,12 @@ api.getInitialCards()
                 owner: data.owner
             }
             cardList.addCard(item)
-        });
+        })
+
+
         addPopup.closePopup()
     })
+    .catch(console.log); */
 
 // создание экземпляров классов
 const cardList = new Section(elements, [], renderer)
@@ -73,16 +100,15 @@ const popupWithImage = new PopupWithImage(popupImageBig);
 const popupEditAvatar = new PopupWithForm(avatar, (inputValues, onThen) => {
     api.updateAvatar(inputValues.avatar)
         .then(res => {
-            console.log(res)
             userInfo.setUserInfo(res.name, res.about, res.avatar)
             if (onThen) onThen(res);
         })
+        .catch(console.log);
 }, 'Сохранение...')
 const userInfo = new UserInfo(profileName, profileProfession, profileAvatar)
 const confirmPopup = new PopupWithForm(popupDeleteConfirm, null, 'Удаление...')
 
 editButtonAvatar.addEventListener('click', () => {
-    console.log(popupTypeAvatar)
     const formName = popupFormEditAvatar.getAttribute("name");
     formValidators[formName].resetValidation();
     popupEditAvatar.openPopup()
@@ -99,14 +125,15 @@ function renderer(item) {
             if (card.isLiked()) {
                 api.deleteLike(id)
                     .then(res => {
-                        console.log(res)
                         card.setLikes(res.likes)
                     })
+                    .catch(console.log)
             } else {
                 api.addLike(id)
                     .then(res => {
                         card.setLikes(res.likes)
                     })
+                    .catch(console.log)
             }
         })
     return card.render()
@@ -120,10 +147,6 @@ editButton.addEventListener('click', () => {
     const formName = popupFormEditProfile.getAttribute("name");
     formValidators[formName].resetValidation();
     popupProfile.openPopup();
-    api.getProfile()
-        .then(res => {
-            userInfo.setUserInfo(res.name, res.about, res.avatar)
-        });
 })
 
 // слушатель клика кнопки добавления карточки
@@ -153,6 +176,7 @@ function handleCardFormSubmit(inputValues, onThen) {
             cardList.prependCard(res)
             if (onThen) onThen(res);
         })
+        .catch(console.log);
 }
 
 function handleProfileFormSubmit(inputValues, onThen) {
@@ -161,6 +185,7 @@ function handleProfileFormSubmit(inputValues, onThen) {
             userInfo.setUserInfo(res.name, res.about, res.avatar);
             if (onThen) onThen(res);
         })
+        .catch(console.log);
 
 }
 
@@ -172,6 +197,7 @@ function handleDeleteClick(id) {
                 document.querySelector(`.element[data-id="${id}"]`).remove();
                 if (onThen) onThen();
             })
+            .catch(console.log);
     })
 
 }

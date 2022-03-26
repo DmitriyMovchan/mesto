@@ -7,6 +7,7 @@ class PopupWithForm extends Popup {
         this._form = this._popup.querySelector('.popup__form');
         this._inputList = this._form.querySelectorAll('.popup__input');
         this._loadingTitle = loadingTitle;
+        this._popupButton = this._popup.querySelector('.popup__button')
     }
 
     // собирает все инпуты в форме
@@ -27,13 +28,18 @@ class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', () => {
             if (!this._form.checkValidity()) return false
-            const lastText = this._popup.querySelector('.popup__button').textContent
-            this._popup.querySelector('.popup__button').textContent = this._loadingTitle;
+            const lastText = this._popupButton.textContent
+            this._popupButton.textContent = this._loadingTitle;
             if (this._submitCallback) this._submitCallback(this._getInputValues(), () => {
                 this.closePopup();
-                this._popup.querySelector('.popup__button').textContent = lastText;
+                this._popupButton.textContent = lastText;
             });
         })
+    }
+
+    serverUpload() {
+        const button = this._popupButton
+        button.textContent = 'Сохранение...'
     }
 
     // закрывает попап и чистит форму

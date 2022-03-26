@@ -12,6 +12,7 @@ class Card {
         this._userId = idUser;
         this._owner = item.owner;
         this._handelLikeclick = handelLikeclick;
+        this._likeHeard = this._view.querySelector('.mask-group__group_heard');
     }
 
     // удаляет карточку
@@ -22,17 +23,17 @@ class Card {
     // навешивает/убирает класс сердечку
     _fillLike(newLikes) {
         this._likes = newLikes
-        this._view.querySelector('.mask-group__group_heard').classList.add('mask-group__group_heard_black');
+        this._likeHeard.classList.add('mask-group__group_heard_black');
 
     }
 
     _unfill(newLikes) {
         this._likes = newLikes
-        this._view.querySelector('.mask-group__group_heard').classList.remove('mask-group__group_heard_black');
+        this._likeHeard.classList.remove('mask-group__group_heard_black');
     }
 
     _setEventListeners() {
-        this._view.querySelector('.mask-group__group_heard').addEventListener('click', () => {
+        this._likeHeard.addEventListener('click', () => {
             this._handelLikeclick(this._id)
         });
         this._buttonDelete.addEventListener('click', () => {

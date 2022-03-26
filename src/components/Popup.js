@@ -23,12 +23,6 @@ class Popup {
         }
     }
 
-    serverUpload() {
-        const button = this._popup.querySelector('.popup__button')
-
-        button.textContent = 'Сохранение...'
-    }
-
     setEventListeners() {
         // закрывает попап на оверлее и кнопке закрытия
         this._popup.addEventListener('mousedown', (event) => {
