@@ -7,6 +7,8 @@
 @import url(../blocks/header/__logo/header__logo.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__avatar/_button/profile__avatar_button.css);
+@import url(../blocks/profile/__avatar/_hover/profile__avatar_hover.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
@@ -17,6 +19,7 @@
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__delete/element__delete.css);
 @import url(../blocks/element/__button-image/element__button-image.css);
+@import url(../blocks/popup/__button/_delete/popup__button_delete.css);
 @import url(../blocks/mask-group/mask-group.css);
 @import url(../blocks/mask-group/__description/mask-group__description.css);
 @import url(../blocks/mask-group/__group/mask-group__group.css);
@@ -30,15 +33,19 @@
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
+@import url(../blocks/popup/__heading/_confirm/popup__heading_confirm.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__content/popup__content.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_name.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_profession.css);
 @import url(../blocks/popup/__button/popup__button.css);
+@import url(../blocks/popup/__button/_edit-avatar/popup__button_edit-avatar.css);
 @import url(../blocks/popup/_image/popup__image-big.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__container/_image/popup__container_image.css);
+@import url(../blocks/popup/__container/_avatar/popup__container_avatar.css);
+@import url(../blocks/popup/__container/_confirm/popup__container_confirm.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/_big/popup_big.css);
 @import url(../blocks/popup/_transition/popup_transition.css);

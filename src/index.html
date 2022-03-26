@@ -17,6 +17,7 @@
             <section class="profile">
                 <button class="profile__avatar_button">
                 <img class="profile__avatar" src="<%=require('./images/Kusto.jpg')%>" alt="аватар" />
+                <div class="profile__avatar profile__avatar_hover"></div>
             </button>
                 <div class="profile__info">
                     <h1 class="profile__name"></h1>
@@ -71,23 +72,23 @@
     </div>
 
     <div class="popup popup_delete-confirm">
-        <div class="popup__container">
-            <button class="popup__close popup__close_add-element" type="button"></button>
-            <h2 class="popup__heading">Вы уверены?</h2>
-            <form class="popup__form popup__form_edit-avatar" name="delete-element" novalidate>
-                <button class="popup__button popup__button-delete">Да</button>
+        <div class="popup__container popup__container_confirm">
+            <button class="popup__close" type="button"></button>
+            <h2 class="popup__heading popup__heading_confirm">Вы уверены?</h2>
+            <form class="popup__form" name="delete-element" novalidate>
+                <button class="popup__button popup__button_delete">Да</button>
             </form>
         </div>
     </div>
 
     <div class="popup popup_edit-avatar">
-        <div class="popup__container">
-            <button class="popup__close popup__close_add-element" type="button"></button>
+        <div class="popup__container popup__container_avatar">
+            <button class="popup__close" type="button"></button>
             <h2 class="popup__heading">Обновить аватар</h2>
-            <form class="popup__form" name="edit-avatar" novalidate>
+            <form class="popup__form popup__form_edit-avatar" name="edit-avatar" novalidate>
                 <fieldset class="popup__content">
-                    <input class="popup__input popup__input_type_avatar" type="src" name="avatar" placeholder="Ссылка на картинку" required minlength="2" maxlength="200" id="input_profession" />
-                    <span id="input_profession-error" class="popup__error"></span>
+                    <input class="popup__input popup__input_type_avatar" type="src" name="avatar" placeholder="Ссылка на картинку" required minlength="2" maxlength="200" id="input_avatar" />
+                    <span id="input_avatar-error" class="popup__error"></span>
                 </fieldset>
                 <button class="popup__button popup__button_edit-avatar" type="submit">
                         Сохранить

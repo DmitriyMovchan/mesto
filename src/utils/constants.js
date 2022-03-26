@@ -20,6 +20,13 @@ export const popupImageBig = document.querySelector('.popup_big')
 export const elements = document.querySelector('.elements') //выбирает ближайший к темплейту элемент
 export const template = document.querySelector('.template').content // берет контент темплейта
 export const formValidators = {}
+export const popupDeleteConfirm = document.querySelector('.popup_delete-confirm')
+export const avatar = document.querySelector('.popup_edit-avatar')
+export const editButtonAvatar = document.querySelector('.profile__avatar_button')
+export const profileAvatar = '.profile__avatar';
+export const popupTypeAvatar = document.querySelector('.popup__input_type_avatar')
+export const popupFormEditAvatar = document.querySelector('.popup__form_edit-avatar')
+
 export const initialCards = [{
         // массив карточек "из коробки"
         name: 'Архыз',

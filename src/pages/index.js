@@ -12,7 +12,6 @@ export function getMyId() {
     return userInfo._id;
 }
 
-
 // импорт констант
 import {
     config,
@@ -30,7 +29,13 @@ import {
     elements,
     template,
     initialCards,
-    formValidators
+    formValidators,
+    popupDeleteConfirm,
+    avatar,
+    editButtonAvatar,
+    profileAvatar,
+    popupTypeAvatar,
+    popupFormEditAvatar
 } from '../utils/constants.js'
 
 let idUser
@@ -55,27 +60,15 @@ api.getInitialCards()
                 idUser: idUser,
                 owner: data.owner
             }
-
             cardList.addCard(item)
-
         });
         addPopup.closePopup()
     })
 
-
 // создание экземпляров классов
-
-
-const popupDeleteConfirm = document.querySelector('.popup_delete-confirm')
-
-
-const avatar = document.querySelector('.popup_edit-avatar')
-const editButtonAvatar = document.querySelector('.profile__avatar_button')
-
-const profileAvatar = '.profile__avatar';
 const cardList = new Section(elements, [], renderer)
-const popupProfile = new PopupWithForm(profilePopupElement, handleProfileFormSubmit);
-const addPopup = new PopupWithForm(popupAddElement, handleCardFormSubmit);
+const popupProfile = new PopupWithForm(profilePopupElement, handleProfileFormSubmit, 'Сохранение...');
+const addPopup = new PopupWithForm(popupAddElement, handleCardFormSubmit, 'Сохранение...');
 const popupWithImage = new PopupWithImage(popupImageBig);
 const popupEditAvatar = new PopupWithForm(avatar, (inputValues, onThen) => {
     api.updateAvatar(inputValues.avatar)
@@ -84,42 +77,16 @@ const popupEditAvatar = new PopupWithForm(avatar, (inputValues, onThen) => {
             userInfo.setUserInfo(res.name, res.about, res.avatar)
             if (onThen) onThen(res);
         })
-})
+}, 'Сохранение...')
 const userInfo = new UserInfo(profileName, profileProfession, profileAvatar)
-const confirmPopup = new PopupWithForm(popupDeleteConfirm
-    /*, (inputValues, onThen) => {
-        api.deleteCard(id).then(res => {
-            console.log('zzzz')
-            if (onThen) onThen(res);
-        });
-    }*/
-)
-
-/*function handleAvatar(inputValues) {
-    console.log(inputValues)
-    api.updateAvatar(inputValues.avatar)
-        .then(res => {
-            console.log(res)
-            userInfo.setUserInfo(res.avatar)
-        })
-} */
-
-const popupTypeAvatar = document.querySelector('.popup__input_type_avatar')
-const popupFormEditAvatar = document.querySelector('.popup__form_edit-avatar')
+const confirmPopup = new PopupWithForm(popupDeleteConfirm, null, 'Удаление...')
 
 editButtonAvatar.addEventListener('click', () => {
-    //console.log()
-    const { avatar } = userInfo.getUserInfo();
-    popupTypeAvatar.value = avatar;
     console.log(popupTypeAvatar)
-        //console.log(editButtonAvatar)
     const formName = popupFormEditAvatar.getAttribute("name");
     formValidators[formName].resetValidation();
     popupEditAvatar.openPopup()
 })
-
-
-
 
 // отрисовка карточки на странице
 function renderer(item) {
@@ -155,9 +122,7 @@ editButton.addEventListener('click', () => {
     popupProfile.openPopup();
     api.getProfile()
         .then(res => {
-
             userInfo.setUserInfo(res.name, res.about, res.avatar)
-
         });
 })
 
@@ -169,7 +134,6 @@ addButton.addEventListener('click', () => {
 })
 
 // вызов ф-ии слушателей
-
 popupProfile.setEventListeners();
 popupWithImage.setEventListeners();
 confirmPopup.setEventListeners();
@@ -202,13 +166,11 @@ function handleProfileFormSubmit(inputValues, onThen) {
 
 function handleDeleteClick(id) {
     confirmPopup.openPopup()
-        //const lastText = confirmPopup._popup.querySelector('.popup__button').textContent
     confirmPopup.changeSubmitHandler((INPUTvALUES, onThen) => {
         api.deleteCard(id)
             .then(res => {
                 document.querySelector(`.element[data-id="${id}"]`).remove();
                 if (onThen) onThen();
-                //confirmPopup._popup.querySelector('.popup__button').textContent = lastText;
             })
     })
 
@@ -234,36 +196,3 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
-
-
-
-
-/*function updateLikeButtonState(card) {
-    console.log(card)
-    const el = document.querySelector(`.element[data-id="${card._id}"] .mask-group__group_heard`);
-    console.log(el)
-        //const likeCount = card.likes.length || 0;
-    const likeCount = document.querySelector('.mask-group__group_count');
-    likeCount.textContent = card.likes.length || 0;
-    console.log(card)
-    const myLike = card.likes.find(x => x._id === '3f8a3377aa43fb02254f2a2b');
-    if (myLike) el.classList.add("mask-group__group_heard_black");
-    else el.classList.remove("mask-group__group_heard_black");
-}
-
-function handelLikeclick(id) {
-    const myLike = document.querySelector(`.element[data-id="${id}"] .mask-group__group_heard`).classList.contains("mask-group__group_heard_black");;
-    if (myLike) {
-        api.deleteLike(id)
-            .then(res => {
-                console.log(res)
-                updateLikeButtonState(res);
-            })
-    } else {
-        api.addLike(id)
-            .then(res => {
-                console.log(res)
-                updateLikeButtonState(res);
-            })
-    }
-} */
