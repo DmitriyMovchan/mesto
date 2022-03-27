@@ -13,15 +13,14 @@ class Section {
     }
 
     // добавляет массив из 6 карточек в DOM
-    renderItems() {
-        this._cards.forEach(() => {
-            this.addCard()
+    renderItems(items, idUser) {
+        items.forEach((item) => {
+            this.addCard({...item, idUser })
         })
     }
 
     // отрисовывет добавленные карточки на странице
     prependCard(item) {
-        console.log('kkk')
         const element = this._renderer(item)
         this._component.prepend(element)
     }

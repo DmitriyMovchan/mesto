@@ -45,7 +45,8 @@ Promise.all([api.getProfile(), api.getInitialCards()])
         userInfo.setUserInfo(userData.name, userData.about, userData.avatar)
         idUser = userData._id;
 
-        cardLists.forEach(data => {
+        cardList.renderItems(cardLists, idUser);
+        /*cardLists.forEach(data => {
             const title = data.name // меняем значение title на введеное в карточке
             const link = data.link // меняем значение Link на введеное в карточке
             const item = {
@@ -57,7 +58,7 @@ Promise.all([api.getProfile(), api.getInitialCards()])
                 owner: data.owner
             }
             cardList.addCard(item)
-        })
+        })*/
     })
     .catch(console.log);
 
@@ -97,13 +98,11 @@ const cardList = new Section(elements, [], renderer)
 const popupProfile = new PopupWithForm(profilePopupElement, handleProfileFormSubmit, 'Сохранение...');
 const addPopup = new PopupWithForm(popupAddElement, handleCardFormSubmit, 'Сохранение...');
 const popupWithImage = new PopupWithImage(popupImageBig);
-const popupEditAvatar = new PopupWithForm(avatar, (inputValues, onThen) => {
-    api.updateAvatar(inputValues.avatar)
+const popupEditAvatar = new PopupWithForm(avatar, (inputValues) => {
+    return api.updateAvatar(inputValues.avatar)
         .then(res => {
             userInfo.setUserInfo(res.name, res.about, res.avatar)
-            if (onThen) onThen(res);
-        })
-        .catch(console.log);
+        });
 }, 'Сохранение...')
 const userInfo = new UserInfo(profileName, profileProfession, profileAvatar)
 const confirmPopup = new PopupWithForm(popupDeleteConfirm, null, 'Удаление...')
@@ -163,7 +162,7 @@ confirmPopup.setEventListeners();
 addPopup.setEventListeners();
 popupEditAvatar.setEventListeners();
 
-function handleCardFormSubmit(inputValues, onThen) {
+function handleCardFormSubmit(inputValues) {
     const title = inputValues.name // меняем значение title на введеное в карточке
     const link = inputValues.description // меняем значение Link на введеное в карточке
     const item = {
@@ -171,33 +170,30 @@ function handleCardFormSubmit(inputValues, onThen) {
         link: link,
     }
 
-    api.addCard(item)
+    return api.addCard(item)
         .then(res => {
             cardList.prependCard(res)
-            if (onThen) onThen(res);
+                //if (onThen) onThen(res);
         })
-        .catch(console.log);
 }
 
-function handleProfileFormSubmit(inputValues, onThen) {
+function handleProfileFormSubmit(inputValues) {
     return api.editProfile(inputValues.name, inputValues.profession)
         .then(res => {
             userInfo.setUserInfo(res.name, res.about, res.avatar);
-            if (onThen) onThen(res);
         })
-        .catch(console.log);
-
 }
 
 function handleDeleteClick(id) {
     confirmPopup.openPopup()
-    confirmPopup.changeSubmitHandler((INPUTvALUES, onThen) => {
-        api.deleteCard(id)
+    confirmPopup.changeSubmitHandler((INPUTvALUES) => {
+        return api.deleteCard(id)
             .then(res => {
-                document.querySelector(`.element[data-id="${id}"]`).remove();
-                if (onThen) onThen();
+                return document.querySelector(`.element[data-id="${id}"]`).remove();
             })
-            .catch(console.log);
+            /*.catch((obj) => {
+                return Promise.reject(obj)
+            });*/
     })
 
 }

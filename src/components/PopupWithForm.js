@@ -30,10 +30,20 @@ class PopupWithForm extends Popup {
             if (!this._form.checkValidity()) return false
             const lastText = this._popupButton.textContent
             this._popupButton.textContent = this._loadingTitle;
-            if (this._submitCallback) this._submitCallback(this._getInputValues(), () => {
+            /*if (this._submitCallback) this._submitCallback(this._getInputValues(), () => {
                 this.closePopup();
                 this._popupButton.textContent = lastText;
-            });
+            });*/
+            this._submitCallback(this._getInputValues())
+                .then((obj) => {
+                    this.closePopup();
+                })
+                .catch((obj) => {
+                    console.log(obj);
+                })
+                .finally((obj) => {
+                    this._popupButton.textContent = lastText;
+                });
         })
     }
 
